@@ -1,11 +1,5 @@
-import express from "express";
-import dotenv from "dotenv";
-
-//Initialize app
-const app = express();
-
-//Settings
-app.set("port", process.env.PORT || 4000);
+import app from "./src/app.js";
+import database from "./src/dbconfig/database.js";
 
 //Listen to
 app.listen(app.get("port"), () => {
