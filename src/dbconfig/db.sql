@@ -50,6 +50,16 @@ CREATE PROCEDURE get_user_by_id(IN userId INT(11))
 
 DELIMITER ;
 
+-- get user by email
+DELIMITER //
+
+CREATE PROCEDURE get_user_by_email(IN userEmail VARCHAR(50))
+  BEGIN
+    SELECT * FROM users WHERE user_email = userEmail;
+  END//
+
+DELIMITER ;
+
 -- create user
 DELIMITER //
 
