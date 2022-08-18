@@ -76,21 +76,26 @@ router.post("/login", async (req, res) => {
           ) {
             res.status(400).json({ message: "Wrong field: email or password" });
           } else {
-            const id = rows[0].user_id;
-            const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
-              expiresIn: process.env.JWT_EXPIRES,
-            });
+            const user_email = rows[0][0].user_email;
+            const token = jwt.sign(
+              { user_email: user_email },
+              process.env.JWT_SECRET,
+              {
+                expiresIn: process.env.JWT_EXPIRES,
+              }
+            );
 
             const cookiesOptions = {
               expires: new Date(
                 Date.now() +
                   process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
               ),
+              secure: true,
             };
             res
               .status(200)
               .cookie("jwt", token, cookiesOptions)
-              .json({ token, user_password, user_email });
+              .send({ token });
           }
         }
       );

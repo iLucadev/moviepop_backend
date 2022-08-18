@@ -73,9 +73,9 @@ DELIMITER ;
 -- save user favorite
 DELIMITER //
 
-CREATE PROCEDURE save_user_favorite(IN userId INT(11), contentId INT(11), contentName VARCHAR(50))
+CREATE PROCEDURE save_user_favorite(IN userId INT(11), contentId INT(11))
   BEGIN
-    INSERT INTO users_favorites(user_id, content_id) VALUES (userId, contentId);
+    INSERT INTO users_favorites SET user_id = userId, content_id = contentId;
   END//
 
 DELIMITER ;

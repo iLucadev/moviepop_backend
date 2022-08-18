@@ -40,6 +40,22 @@ router.get("/users/favorites/:id", (req, res) => {
   );
 });
 
+//SAVE USER FAVORITE
+router.post("/users/favorites", (req, res) => {
+  const { user_id, content_id } = req.body;
+
+  const newFavorite = {
+    user_id,
+    content_id,
+  };
+
+  console.log(newFavorite);
+
+  connection.query(`CALL save_user_favorite(?)`, [newFavorite], (err, rows) => {
+    err ? res.status(204).send(err) : res.status(200).json(rows);
+  });
+});
+
 //POST
 router.post("/users", async (req, res) => {
   const { user_first_name, user_last_name, user_password, user_email } =
